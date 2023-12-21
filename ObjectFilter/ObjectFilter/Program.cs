@@ -1,102 +1,55 @@
-﻿using ObjectFilter.Model;
+﻿using Newtonsoft.Json.Linq;
+using ObjectFilter.Model;
 
-namespace ObjectFilter;
+namespace FilterObject;
 
-static class Program
+public class PropertyAccessor
 {
-    private static void Main()
+    private readonly Type _objectType;
+
+    public PropertyAccessor(Type objectType)
     {
-        // Example Product instance
+        _objectType = objectType ?? throw new ArgumentNullException(nameof(objectType));
+    }
+
+    public object? GetValue(object obj, string jsonPath)
+    {
+        var json = JObject.FromObject(obj);
+        var token = json.SelectToken(jsonPath);
+
+        if (token == null)
+        {
+            throw new ArgumentException($"Invalid JSONPath expression: {jsonPath}");
+        }
+
+        return token.ToObject<object>();
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
         var product = new Product
         {
             BrandId = "ext-brand-23",
             VariationIds = new List<string> { "ext-var-1", "ext-var-2" },
-            Color = "red"
-        };
-
-        
-        
-        // Example FilterPredicate instance
-        var filterPredicate = new FilterPredicate
-        {
-            Operation = "And",
-            ObjectType = "Product",
-            Apply = new List<FilterPredicate>
+            Color = "red",
+            Warranty = new Warranty
             {
-                new()
-                {
-                    Operation = "Equals",
-                    ObjectType = "Product",
-                    Path = "/brandId",
-                    Value = "ext-brand-23"
-                },
-                new()
-                {
-                    Operation = "Or",
-                    ObjectType = "Product",
-                    Apply = new List<FilterPredicate>
-                    {
-                        new()
-                        {
-                            Operation = "Contains",
-                            ObjectType = "Product",
-                            Path = "/variationIds",
-                            Value = "ext-var-2"
-                        },
-                        new()
-                        {
-                            Operation = "Equals",
-                            ObjectType = "Product",
-                            Path = "/color",
-                            Value = "red"
-                        }
-                    }
-                }
-            }
-        };
-        
-        // Evaluate the filter for the product
-        bool productResult = FilterEvaluator<Product>.EvaluateFilter(filterPredicate, product);
-        
-        // Output the result for the product
-        Console.WriteLine($"Product satisfies the filter: {productResult}");
-
-        //Example Person instance
-        var person = new Person
-        {
-            Name = "John Doe",
-            Age = 30,
-            City = "New York"
-        };
-        
-        // Example FilterPredicate for Person
-        var personFilter = new FilterPredicate
-        {
-            Operation = "And",
-            ObjectType = "Person",
-            Apply = new List<FilterPredicate>
-            {
-                new FilterPredicate
-                {
-                    Operation = "Equals",
-                    ObjectType = "Person",
-                    Path = "/Age",
-                    Value = 30
-                },
-                new FilterPredicate
-                {
-                    Operation = "Equals",
-                    ObjectType = "Person",
-                    Path = "/City",
-                    Value = "New York"
-                }
+                DurationInMonths = 12,
+                WarrantyType = "Normal"
             }
         };
 
-        //Evaluate the filter for the person
-        bool personResult = FilterEvaluator<Person>.EvaluateFilter(personFilter, person);
-        
-        // Output the result for the person
-        Console.WriteLine($"Person satisfies the filter: {personResult}");
+        var propertyAccessor = new PropertyAccessor(product.GetType());
+
+        // Example 1
+        object? result1 = propertyAccessor.GetValue(product, "$.Color");
+        Console.WriteLine(result1);
+
+        // Example 2
+        object? result2 = propertyAccessor.GetValue(product, "$.Warranty.DurationInMonths");
+        Console.WriteLine(result2);
     }
 }
