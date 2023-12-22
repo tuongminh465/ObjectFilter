@@ -1,11 +1,10 @@
-using System.Reflection;
+using Newtonsoft.Json.Linq;
 
 namespace ObjectFilter.Model;
 
-public class FilterPredicate
+public abstract class FilterPredicate
 {
     public string Operation { get; set; }
-    public string ObjectType { get; set; }
     public string Path { get; set; }
     public object Value { get; set; }
     public List<FilterPredicate> Apply { get; set; }
@@ -62,24 +61,16 @@ public class FilterEvaluator<T>
         return filter.Apply.Any(subFilter => EvaluateFilter(subFilter, obj));
     }
 
-    private static object GetPropertyValue(object obj, string path)
+    private static object? GetPropertyValue(object obj, string path)
     {
-        var propertyNames = path.Split('/');
-        var currentObject = obj;
+        var json = JObject.FromObject(obj);
+        var token = json.SelectToken(path);
 
-        foreach (var propertyName in propertyNames)
+        if (token == null)
         {
-            var property = currentObject?.GetType().GetProperty(propertyName, BindingFlags.IgnoreCase);
-
-            if (property == null)
-            {
-                // Property not found, return a default value
-                return null; // Or you can return a specific default value based on the property type
-            }
-
-            currentObject = property.GetValue(currentObject);
+            throw new ArgumentException($"Invalid JSONPath expression: {path}");
         }
 
-        return currentObject;
+        return token.ToObject<object>();
     }
 }
