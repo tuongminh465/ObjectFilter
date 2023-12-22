@@ -1,30 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using FilterObject.Functions;
 using ObjectFilter.Model;
-
-namespace FilterObject;
-
-public class PropertyAccessor
-{
-    private readonly Type _objectType;
-
-    public PropertyAccessor(Type objectType)
-    {
-        _objectType = objectType ?? throw new ArgumentNullException(nameof(objectType));
-    }
-
-    public object? GetValue(object obj, string jsonPath)
-    {
-        var json = JObject.FromObject(obj);
-        var token = json.SelectToken(jsonPath);
-
-        if (token == null)
-        {
-            throw new ArgumentException($"Invalid JSONPath expression: {jsonPath}");
-        }
-
-        return token.ToObject<object>();
-    }
-}
 
 class Program
 {
@@ -41,15 +16,41 @@ class Program
                 WarrantyType = "Normal"
             }
         };
+        
+        var filterPredicate = new FilterPredicate
+        {
+            Operation = "Not",
+            Apply = new List<FilterPredicate>
+            {
+                new()
+                {
+                    Operation = "Contains",
+                    Path = "$.BrandId",
+                    Value = "brand-23"
+                },
+                new()
+                {
+                    Operation = "Or",
+                    Apply = new List<FilterPredicate>
+                    {
+                        new()
+                        {
+                            Operation = "Contains",
+                            Path = "$.VariationIds",
+                            Value = "ext-var-2"
+                        },
+                        new()
+                        {
+                            Operation = "GreaterThan",
+                            Path = "$.Warranty.DurationInMonths",
+                            Value = 12
+                        }
+                    }
+                }
+            }
+        };
 
-        var propertyAccessor = new PropertyAccessor(product.GetType());
-
-        // Example 1
-        object? result1 = propertyAccessor.GetValue(product, "$.Color");
-        Console.WriteLine(result1);
-
-        // Example 2
-        object? result2 = propertyAccessor.GetValue(product, "$.Warranty.DurationInMonths");
-        Console.WriteLine(result2);
+        var result = ObjectFilterFunction.EvaluateFilter(filterPredicate, product);
+        Console.WriteLine(result.ToString());
     }
 }
