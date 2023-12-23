@@ -1,7 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using FilterObject.Functions;
 using ObjectFilter.Model;
-
-namespace ObjectFilter;
 
 class Program
 {
@@ -15,39 +13,44 @@ class Program
             Warranty = new Warranty
             {
                 DurationInMonths = 12,
-                WarrantyType = "Normal",
-                Testing = new Testing()
+                WarrantyType = "Normal"
+            }
+        };
+        
+        var filterPredicate = new FilterPredicate
+        {
+            Operation = "Not",
+            Apply = new List<FilterPredicate>
+            {
+                new()
                 {
-                    Example = "Nice work"
+                    Operation = "Contains",
+                    Path = "$.BrandId",
+                    Value = "brand-23"
+                },
+                new()
+                {
+                    Operation = "Or",
+                    Apply = new List<FilterPredicate>
+                    {
+                        new()
+                        {
+                            Operation = "Contains",
+                            Path = "$.VariationIds",
+                            Value = "ext-var-2"
+                        },
+                        new()
+                        {
+                            Operation = "GreaterThan",
+                            Path = "$.Warranty.DurationInMonths",
+                            Value = 12
+                        }
+                    }
                 }
             }
         };
 
-        // var propertyAccessor = new PropertyAccessor(product.GetType());
-
-        // Example 1
-        object? result1 = GetValue(product, "$.Color");
-        Console.WriteLine(result1);
-
-        // Example 2
-        object? result2 = GetValue(product, "$.Warranty.DurationInMonths");
-        Console.WriteLine(result2);
-        
-        //Example 3
-        object? result3 = GetValue(product, "$.Warranty.Testing.Example");
-        Console.WriteLine(result3);
-    }
-
-    private static object? GetValue(object obj, string path)
-    {
-        var json = JObject.FromObject(obj);
-        var token = json.SelectToken(path);
-
-        if (token == null)
-        {
-            throw new ArgumentException($"Invalid JSONPath expression: {path}");
-        }
-
-        return token.ToObject<object>();
+        var result = ObjectFilterFunction.EvaluateFilter(filterPredicate, product);
+        Console.WriteLine(result.ToString());
     }
 }
