@@ -169,7 +169,7 @@ public class ObjectFilterFunction
         {
             throw new ArgumentException($"Invalid JSONPath expression: {jsonPath}");
         }
-
-        return token.ToObject<object>();
+        
+        return token is JArray ? token.ToObject<List<object>>() : token.ToObject<object>();
     }
 }
