@@ -4,16 +4,16 @@ using Shouldly;
 
 namespace UnitTest.ObjectFilterFunctionTests;
 
-public class EqualsOperatorTest : ObjectFilterFunctionTestBase
+public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdEqualsValue_ShouldReturnTrue()
+    public void ObjectFilterFunction_WithDurationInMonthsGreaterThanValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
-            Operation = "Equals",
-            Path = "$.BrandId",
-            Value = "ext-brand-23"
+            Operation = "GreaterThanOrEqual",
+            Path = "$.Warranty.DurationInMonth",
+            Value = 10
         };
 
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
@@ -22,13 +22,13 @@ public class EqualsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotEqualsValue_ShouldReturnTrue()
+    public void ObjectFilterFunction_WithDurationInMonthsLowerThanValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
-            Operation = "Equals",
-            Path = "$.BrandId",
-            Value = "ext-brand-45"
+            Operation = "GreaterThanOrEqual",
+            Path = "$.Warranty.DurationInMonth",
+            Value = 15
         };
 
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
@@ -41,7 +41,7 @@ public class EqualsOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "Equals",
+            Operation = "GreaterThanOrEqual",
             Path = "$.Warranty.DurationInMonth",
             Value = 12
         };
@@ -49,20 +49,5 @@ public class EqualsOperatorTest : ObjectFilterFunctionTestBase
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
 
         result.ShouldBe(true);
-    }
-    
-    [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsNotEqualsValue_ShouldReturnFalse()
-    {
-        var filter = new FilterPredicate
-        {
-            Operation = "Equals",
-            Path = "$.Warranty.DurationInMonth",
-            Value = 10
-        };
-
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
-
-        result.ShouldBe(false);
-    }
+    }    
 }

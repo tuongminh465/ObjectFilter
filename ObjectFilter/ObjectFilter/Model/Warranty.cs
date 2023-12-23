@@ -2,6 +2,6 @@ namespace ObjectFilter.Model;
 
 public class Warranty
 {
-    public int? DurationInMonths { get; set; }
+    public int? DurationInMonth { get; set; }
     public string? WarrantyType { get; set; }
 }

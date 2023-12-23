@@ -12,7 +12,7 @@ class Program
             Color = "red",
             Warranty = new Warranty
             {
-                DurationInMonths = 12,
+                DurationInMonth = 12,
                 WarrantyType = "Normal"
             }
         };
