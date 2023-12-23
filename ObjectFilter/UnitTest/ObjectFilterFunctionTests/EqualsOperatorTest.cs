@@ -1,20 +1,19 @@
-﻿using FilterObject.Functions;
+using FilterObject.Functions;
 using ObjectFilter.Model;
 using Shouldly;
-using UnitTest.ObjectFilterFunctionTests;
 
-namespace UnitTest;
+namespace UnitTest.ObjectFilterFunctionTests;
 
-public class ContainsOperatorTest : ObjectFilterFunctionTestBase
+public class EqualsOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdContainsValue_ShouldReturnTrue()
+    public void ObjectFilterFunction_WithBrandIdEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
-            Operation = "Contains",
+            Operation = "Equals",
             Path = "$.BrandId",
-            Value = "brand-23"
+            Value = "ext-brand-23"
         };
 
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
@@ -23,13 +22,13 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotContainsValue_ShouldReturnFalse()
+    public void ObjectFilterFunction_WithBrandIdNotEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
-            Operation = "Contains",
+            Operation = "Equals",
             Path = "$.BrandId",
-            Value = "brand-45"
+            Value = "ext-brand-45"
         };
 
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
@@ -38,13 +37,13 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithVariationsIdContainsValue_ShouldReturnTrue()
+    public void ObjectFilterFunction_WithDurationInMonthsEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
-            Operation = "Contains",
-            Path = "$.VariationIds",
-            Value = "ext-var-2"
+            Operation = "Equals",
+            Path = "$.Warranty.DurationInMonths",
+            Value = 12
         };
 
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
@@ -53,13 +52,13 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithVariationsIdsNotContainsValue_ShouldReturnFalse()
+    public void ObjectFilterFunction_WithDurationInMonthsNotEqualsValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
-            Operation = "Contains",
-            Path = "$.VariationIds",
-            Value = "ext-var-3"
+            Operation = "Equals",
+            Path = "$.Warranty.DurationInMonths",
+            Value = 10
         };
 
         var result = ObjectFilterFunction.EvaluateFilter(filter, _product);

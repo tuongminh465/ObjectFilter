@@ -37,20 +37,19 @@ public class ObjectFilterFunction
                 return EvaluateLowerThan(filter, obj);
             case "lowerthanorequal":
                 return EvaluateLowerThanOrEqual(filter, obj);
+            case "null":
+                return EvaluateNull(filter, obj);
+            case "notnull":
+                return !EvaluateNull(filter, obj);
             case "empty":
                 return EvaluateEmpty(filter, obj);
             case "notempty":
-                return EvaluateNotEmpty(filter, obj);
+                return !EvaluateEmpty(filter, obj);
             default:
                 throw new InvalidOperationException($"Unsupported filter operation: {filter.Operation}");
         }
     }
-    
-    private static bool EvaluateNotEmpty(FilterPredicate filter, object obj)
-    {
-        return !EvaluateEmpty(filter, obj);
-    }
-    
+
     private static bool EvaluateNot(FilterPredicate filter, object obj)
     {
         return !EvaluateOr(filter, obj);
@@ -140,21 +139,30 @@ public class ObjectFilterFunction
 
     private static bool EvaluateEmpty(FilterPredicate filter, object obj)
     {
+        var result = EvaluateNull(filter, obj);
+        
         var propertyValue = GetPropertyValue(obj, filter.Path);
-
-        if (propertyValue == null)
-        {
-            return true;
-        }
 
         if (propertyValue is string stringValue)
         {
-            return string.IsNullOrEmpty(stringValue);
+            result = string.IsNullOrEmpty(stringValue);
         }
 
         if (propertyValue is IEnumerable<object> enumerableValue)
         {
-            return !enumerableValue.Any();
+            result = !enumerableValue.Any();
+        }
+
+        return result;
+    }
+
+    private static bool EvaluateNull(FilterPredicate filter, object obj)
+    {
+        var propertyValue = GetPropertyValue(obj, filter.Path);
+        
+        if (propertyValue == null)
+        {
+            return true;
         }
 
         return false;

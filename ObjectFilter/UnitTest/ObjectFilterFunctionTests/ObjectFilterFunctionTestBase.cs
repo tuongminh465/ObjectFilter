@@ -1,6 +1,6 @@
 using ObjectFilter.Model;
 
-namespace UnitTest;
+namespace UnitTest.ObjectFilterFunctionTests;
 
 public class ObjectFilterFunctionTestBase
 {
@@ -17,7 +17,7 @@ public class ObjectFilterFunctionTestBase
             Warranty = new Warranty
             {
                 DurationInMonths = 12,
-                WarrantyType = "Normal"
+                WarrantyType = null
             }
         };
     }
