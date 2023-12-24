@@ -21,7 +21,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdmpty_ShouldReturnFalse()
+    public void ObjectFilterFunction_WithBrandIdEmpty_ShouldReturnFalse()
     {
         _product.BrandId = "";
         

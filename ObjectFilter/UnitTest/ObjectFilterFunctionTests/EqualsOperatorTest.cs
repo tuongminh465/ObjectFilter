@@ -37,6 +37,21 @@ public class EqualsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
+    public void ObjectFilterFunction_WithCaseSensitiveBrandIdEqualsValue_ShouldReturnTrue()
+    {
+        var filter = new FilterPredicate
+        {
+            Operation = "Equals",
+            Path = "$.BrandId",
+            Value = "Ext-Brand-23"
+        };
+
+        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+
+        result.ShouldBe(false);
+    }
+    
+    [Test]
     public void ObjectFilterFunction_WithDurationInMonthsEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate

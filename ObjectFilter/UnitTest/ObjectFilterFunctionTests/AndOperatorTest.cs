@@ -175,4 +175,18 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
 
         result.ShouldBe(true);
     }
+    
+    [Test]
+    public void ObjectFilterFunction_WithEmptyFilterList_ShouldReturnTrue()
+    {
+        var filter = new FilterPredicate
+        {
+            Operation = "And",
+            Apply = new List<FilterPredicate>()
+        };
+
+        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+
+        result.ShouldBe(true);
+    }
 }
