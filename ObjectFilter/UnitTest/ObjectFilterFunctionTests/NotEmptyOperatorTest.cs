@@ -57,7 +57,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
         
         var filter = new FilterPredicate
         {
-            Operation = "NotEmpty",
+            Operation = "ArrayNotEmpty",
             Path = "$.VariationIds"
         };
 
@@ -71,7 +71,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "NotEmpty",
+            Operation = "ArrayNotEmpty",
             Path = "$.VariationIds"
         };
 

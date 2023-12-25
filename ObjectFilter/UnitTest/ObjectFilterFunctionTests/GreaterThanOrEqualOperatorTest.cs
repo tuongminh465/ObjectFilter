@@ -11,7 +11,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "GreaterThanOrEqual",
+            Operation = "gte",
             Path = "$.Warranty.DurationInMonth",
             Value = 10
         };
@@ -26,7 +26,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "GreaterThanOrEqual",
+            Operation = "gte",
             Path = "$.Warranty.DurationInMonth",
             Value = 15
         };
@@ -41,7 +41,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "GreaterThanOrEqual",
+            Operation = "gte",
             Path = "$.Warranty.DurationInMonth",
             Value = 12
         };
@@ -50,4 +50,6 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
 
         result.ShouldBe(true);
     }    
+    
+    
 }

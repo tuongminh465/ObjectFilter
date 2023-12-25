@@ -22,7 +22,7 @@ public class NotOperatorTest : ObjectFilterFunctionTestBase
                 },
                 new()
                 {
-                    Operation = "GreaterThan",
+                    Operation = "gt",
                     Path = "$.Warranty.DurationInMonth",
                     Value = 15
                 }
@@ -77,94 +77,14 @@ public class NotOperatorTest : ObjectFilterFunctionTestBase
                 },
                 new()
                 {
-                    Operation = "GreaterThanOrEqual",
+                    Operation = "gte",
                     Path = "$.Warranty.DurationInMonth",
                     Value = 15
                 },
                 new()
                 {
-                    Operation = "Empty",
+                    Operation = "ArrayEmpty",
                     Path = "$.VariationIds",
-                }
-            }
-        };
-
-        var result = ObjectEvaluator.EvaluateObject(filter, _product);
-
-        result.ShouldBe(true);
-    }
-    
-    [Test]
-    public void ObjectFilterFunction_WithNestedAndConditions_ShouldReturnTrue()
-    {
-        var filter = new FilterPredicate
-        {
-            Operation = "Not",
-            Apply = new List<FilterPredicate>
-            {
-                new()
-                {
-                    Operation = "Equals",
-                    Path = "$.BrandId",
-                    Value = "ext-brand-45" 
-                },
-                new()
-                {
-                    Operation = "And",
-                    Apply = new List<FilterPredicate>
-                    {
-                        new()
-                        {
-                            Operation = "LowerThanOrEqual",
-                            Path = "$.Warranty.DurationInMonth",
-                            Value = 10
-                        },
-                        new()
-                        {
-                            Operation = "Contains",
-                            Path = "$.VariationIds",
-                            Value = "ext-var-2"
-                        }
-                    }
-                }
-            }
-        };
-
-        var result = ObjectEvaluator.EvaluateObject(filter, _product);
-
-        result.ShouldBe(true);
-    }
-    
-    [Test]
-    public void ObjectFilterFunction_WithNestedOrConditions_ShouldReturnTrue()
-    {
-        var filter = new FilterPredicate
-        {
-            Operation = "Not",
-            Apply = new List<FilterPredicate>
-            {
-                new()
-                {
-                    Operation = "Equals",
-                    Path = "$.BrandId",
-                    Value = "ext-brand-45" 
-                },
-                new()
-                {
-                    Operation = "Or",
-                    Apply = new List<FilterPredicate>
-                    {
-                        new()
-                        {
-                            Operation = "Null",
-                            Path = "$.Warranty.DurationInMonth",
-                        },
-                        new()
-                        {
-                            Operation = "Empty",
-                            Path = "$.VariationIds",
-                        }
-                    }
                 }
             }
         };

@@ -42,7 +42,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "Contains",
+            Operation = "ArrayContains",
             Path = "$.VariationIds",
             Value = "ext-var-2"
         };
@@ -57,7 +57,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     {
         var filter = new FilterPredicate
         {
-            Operation = "Contains",
+            Operation = "ArrayContains",
             Path = "$.VariationIds",
             Value = "ext-var-3"
         };

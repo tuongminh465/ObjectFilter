@@ -14,7 +14,7 @@ class Program
             Warranty = new Warranty
             {
                 DurationInMonth = 12,
-                WarrantyType = "Normal"
+                WarrantyType = null
             }
         };
         
@@ -31,17 +31,8 @@ class Program
                 new FilterPredicate
                 {
                     Operation = "Contains",
-                    Path = "$.BrandId",
+                    Path = "$.Warranty.WarrantyType",
                     Value = "brand-23",
-                    Apply = new List<FilterPredicate>
-                    {
-                        new()
-                        {
-                            Operation = "Contains",
-                            Path = "$.Warranty.WarrantyType",
-                            Value = "NewType"
-                        }
-                    }
                 }
             },
             {
@@ -57,9 +48,9 @@ class Program
         };
         
         var result1 = ObjectEvaluator.ApplyCorrespondingFilter(policies, product);
-        var result2 = ObjectEvaluator.ApplyCorrespondingFilter(policies, order);
+        // var result2 = ObjectEvaluator.ApplyCorrespondingFilter(policies, order);
 
         Console.WriteLine(result1);
-        Console.WriteLine(result2);
+        // Console.WriteLine(result2);
     }
 }
