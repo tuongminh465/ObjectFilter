@@ -1,4 +1,4 @@
-using FilterObject.Functions;
+using ObjectFilter.Functions;
 using ObjectFilter.Model;
 using Shouldly;
 
@@ -15,7 +15,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.BrandId"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -31,7 +31,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.BrandId"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
@@ -45,7 +45,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.Warranty.WarrantyType"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
@@ -61,7 +61,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.VariationIds"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
@@ -75,7 +75,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.VariationIds"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }

@@ -1,4 +1,4 @@
-using FilterObject.Functions;
+using ObjectFilter.Functions;
 using ObjectFilter.Model;
 using Shouldly;
 
@@ -15,7 +15,7 @@ public class NullOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.Warranty.WarrantyType"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -31,7 +31,7 @@ public class NullOperatorTest : ObjectFilterFunctionTestBase
             Path = "$.Warranty.WarrantyType"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }

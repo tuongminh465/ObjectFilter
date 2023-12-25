@@ -1,4 +1,4 @@
-using FilterObject.Functions;
+using ObjectFilter.Functions;
 using ObjectFilter.Model;
 using Shouldly;
 
@@ -16,7 +16,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
             Value = 10
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -31,7 +31,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
             Value = 15
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
@@ -46,7 +46,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
             Value = 12
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }    

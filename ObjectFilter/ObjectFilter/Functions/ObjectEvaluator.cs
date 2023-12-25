@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json.Linq;
 using ObjectFilter.Model;
 
-namespace FilterObject.Functions;
+namespace ObjectFilter.Functions;
 
-public class ObjectFilterFunction
+public static class ObjectEvaluator
 {
-    public static bool EvaluateFilter(FilterPredicate filter, object obj)
+    public static bool EvaluateObject(FilterPredicate filter, object obj)
     {
         if (filter == null)
         {
@@ -57,12 +57,12 @@ public class ObjectFilterFunction
     
     private static bool EvaluateAnd(FilterPredicate filter, object obj)
     {
-        return filter.Apply.All(subFilter => EvaluateFilter(subFilter, obj));
+        return filter.Apply.All(subFilter => EvaluateObject(subFilter, obj));
     }
 
     private static bool EvaluateOr(FilterPredicate filter, object obj)
     {
-        return filter.Apply.Any(subFilter => EvaluateFilter(subFilter, obj));
+        return filter.Apply.Any(subFilter => EvaluateObject(subFilter, obj));
     }
 
     private static bool EvaluateEquals(FilterPredicate filter, object obj)

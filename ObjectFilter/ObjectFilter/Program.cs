@@ -1,4 +1,4 @@
-﻿using FilterObject.Functions;
+﻿using ObjectFilter.Functions;
 using ObjectFilter.Model;
 
 class Program
@@ -50,7 +50,7 @@ class Program
             }
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filterPredicate, product);
+        var result = ObjectEvaluator.EvaluateObject(filterPredicate, product);
         Console.WriteLine(result.ToString());
     }
 }
