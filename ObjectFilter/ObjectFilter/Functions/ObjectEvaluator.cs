@@ -8,31 +8,17 @@ public static class ObjectEvaluator
 {
     public static bool ApplyCorrespondingFilter(Dictionary<ObjectType, FilterPredicate> policies, object obj)
     {
-        foreach (var kvp in policies)
+        switch (obj)
         {
-            var objectType = kvp.Key;
+            case Product product when policies.TryGetValue(ObjectType.Product, out var filter):
+                return EvaluateObject(filter, product);
+
+            case Order order when policies.TryGetValue(ObjectType.Order, out var filter):
+                return EvaluateObject(filter, order);
             
-            switch (objectType)
-            {
-                case ObjectType.Product:
-                    if (obj is Product product)
-                    {
-                        return EvaluateObject(kvp.Value, product);
-                    }
-                    break;
-                case ObjectType.Order:
-                    if (obj is Order order)
-                    {
-                        return EvaluateObject(kvp.Value, order);
-                    }
-                    break;
-
-                default:
-                    throw new InvalidOperationException($"Unsupported ObjectType: {kvp.Key}");
-            }
+            default:
+                return false;
         }
-
-        return false;
     }
     
     public static bool EvaluateObject(FilterPredicate filter, object obj)
