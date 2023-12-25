@@ -23,83 +23,41 @@ class Program
             OrderId = "ext-order-001",
             OrderNumber = 001
         };
-        
-        var filterPredicate = new FilterPredicate
+
+        var policies = new Dictionary<ObjectType, FilterPredicate>
         {
-            Operation = "Not",
-            Apply = new List<FilterPredicate>
             {
-                new()
+                ObjectType.Product,
+                new FilterPredicate
                 {
                     Operation = "Contains",
                     Path = "$.BrandId",
-                    Value = "brand-21"
-                },
-                new()
-                {
-                    Operation = "Or",
+                    Value = "brand-23",
                     Apply = new List<FilterPredicate>
                     {
                         new()
                         {
                             Operation = "Contains",
-                            Path = "$.VariationIds",
-                            Value = "ext-var-3"
-                        },
-                        new()
-                        {
-                            Operation = "GreaterThan",
-                            Path = "$.Warranty.DurationInMonth",
-                            Value = 12
+                            Path = "$.Warranty.WarrantyType",
+                            Value = "NewType"
                         }
                     }
                 }
-            }
-        };
-
-        var result = ObjectEvaluator.EvaluateObject(filterPredicate, product);
-        Console.WriteLine(result.ToString());
-        
-        var channelMapping = new ChannelMapping
-        {
-            SourceId = "Source123",
-            TargetId = "Target456",
-            Policies = new Dictionary<ObjectType, FilterPredicate>
+            },
             {
+                ObjectType.Order,
+                new()
                 {
-                    ObjectType.Product,
-                    new FilterPredicate
-                    {
-                        Operation = "Contains",
-                        Path = "$.BrandId",
-                        Value = "ext-brand-21",
-                        Apply = new List<FilterPredicate>
-                        {
-                            new FilterPredicate
-                            {
-                                Operation = "Contains",
-                                Path = "$.Warranty.WarrantyType",
-                                Value = "NewType"
-                            }
-                        }
-                    }
-                },
-                {
-                    ObjectType.Order,
-                    new FilterPredicate
-                    {
-                        Operation = "Contains",
-                        Path = "$.OrderId",
-                        Value = "ext-order-001",
-                        Apply = null
-                    }
+                    Operation = "Contains",
+                    Path = "$.OrderId",
+                    Value = "ext-order-001",
+                    Apply = null
                 }
-                // Add more policies as needed
             }
         };
-
-        var result1 = channelMapping.ApplyFilter(product);
-        var result2 = channelMapping.ApplyFilter(order);
+        
+        var result1 = ObjectEvaluator.ApplyCorrespondingFilter(policies, product);
+        var result2 = ObjectEvaluator.ApplyCorrespondingFilter(policies, order);
 
         Console.WriteLine(result1);
         Console.WriteLine(result2);

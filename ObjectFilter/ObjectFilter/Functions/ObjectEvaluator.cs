@@ -1,22 +1,42 @@
 ﻿using Newtonsoft.Json.Linq;
+using ObjectFilter.Enum;
 using ObjectFilter.Model;
 
 namespace ObjectFilter.Functions;
 
 public static class ObjectEvaluator
 {
+    public static bool ApplyCorrespondingFilter(Dictionary<ObjectType, FilterPredicate> policies, object obj)
+    {
+        foreach (var kvp in policies)
+        {
+            var objectType = kvp.Key;
+            
+            switch (objectType)
+            {
+                case ObjectType.Product:
+                    if (obj is Product product)
+                    {
+                        return EvaluateObject(kvp.Value, product);
+                    }
+                    break;
+                case ObjectType.Order:
+                    if (obj is Order order)
+                    {
+                        return EvaluateObject(kvp.Value, order);
+                    }
+                    break;
+
+                default:
+                    throw new InvalidOperationException($"Unsupported ObjectType: {kvp.Key}");
+            }
+        }
+
+        return false;
+    }
+    
     public static bool EvaluateObject(FilterPredicate filter, object obj)
     {
-        if (filter == null)
-        {
-            throw new ArgumentNullException(nameof(filter));
-        }
-
-        if (obj == null)
-        {
-            throw new ArgumentNullException(nameof(obj));
-        }
-
         switch (filter.Operation.ToLower())
         {
             case "not":
