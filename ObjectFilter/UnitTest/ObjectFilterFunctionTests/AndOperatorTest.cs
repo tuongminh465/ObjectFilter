@@ -1,4 +1,4 @@
-﻿using FilterObject.Functions;
+﻿using ObjectFilter.Functions;
 using ObjectFilter.Model;
 using Shouldly;
 
@@ -29,7 +29,7 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
             }
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -57,7 +57,7 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
             }
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
@@ -91,7 +91,7 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
             }
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -132,7 +132,7 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
             }
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -171,7 +171,7 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
             }
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }

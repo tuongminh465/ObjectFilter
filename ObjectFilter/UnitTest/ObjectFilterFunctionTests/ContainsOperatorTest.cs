@@ -1,4 +1,4 @@
-﻿using FilterObject.Functions;
+﻿using ObjectFilter.Functions;
 using ObjectFilter.Model;
 using Shouldly;
 using UnitTest.ObjectFilterFunctionTests;
@@ -17,7 +17,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
             Value = "brand-23"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -32,7 +32,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
             Value = "brand-45"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
@@ -47,7 +47,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
             Value = "ext-var-2"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(true);
     }
@@ -62,7 +62,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
             Value = "ext-var-3"
         };
 
-        var result = ObjectFilterFunction.EvaluateFilter(filter, _product);
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
 
         result.ShouldBe(false);
     }
