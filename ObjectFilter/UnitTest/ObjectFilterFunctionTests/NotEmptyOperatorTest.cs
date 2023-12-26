@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotEmpty_ShouldReturnTrue()
+    public void NotEmptyOperatorTest_WithBrandIdNotEmpty_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -21,7 +21,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdmpty_ShouldReturnFalse()
+    public void NotEmptyOperatorTest_WithBrandIdmpty_ShouldReturnFalse()
     {
         _product.BrandId = "";
         
@@ -37,7 +37,7 @@ public class NotEmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithWarrantyTypeNull_ShouldReturnFalse()
+    public void NotEmptyOperatorTest_WithWarrantyTypeNull_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {

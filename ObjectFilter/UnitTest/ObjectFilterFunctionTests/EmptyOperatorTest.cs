@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class EmptyOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdEmpty_ShouldReturnTrue()
+    public void EmptyOperatorTest_WithBrandIdEmpty_ShouldReturnTrue()
     {
         _product.BrandId = "";
         
@@ -23,7 +23,7 @@ public class EmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotEmpty_ShouldReturnFalse()
+    public void EmptyOperatorTest_WithBrandIdNotEmpty_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -37,7 +37,7 @@ public class EmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithWarrantyTypeNull_ShouldReturnFalse()
+    public void EmptyOperatorTest_WithWarrantyTypeNull_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -51,7 +51,7 @@ public class EmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithVariationIdsEmpty_ShouldReturnTrue()
+    public void EmptyOperatorTest_WithVariationIdsEmpty_ShouldReturnTrue()
     {
         _product.VariationIds = new List<string>();
         
@@ -67,7 +67,7 @@ public class EmptyOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithVariationIdsNotEmpty_ShouldReturnFalse()
+    public void EmptyOperatorTest_WithVariationIdsNotEmpty_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {

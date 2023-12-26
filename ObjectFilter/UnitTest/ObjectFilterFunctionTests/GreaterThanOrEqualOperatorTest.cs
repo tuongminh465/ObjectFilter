@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsGreaterThanValue_ShouldReturnFalse()
+    public void GreaterThanOrEqualOperatorTest_WithDurationInMonthsGreaterThanValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -22,7 +22,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsLowerThanValue_ShouldReturnFalse()
+    public void GreaterThanOrEqualOperatorTest_WithDurationInMonthsLowerThanValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -37,7 +37,7 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsEqualsValue_ShouldReturnTrue()
+    public void GreaterThanOrEqualOperatorTest_WithDurationInMonthsEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -50,6 +50,4 @@ public class GreaterThanOrEqualOperatorTest : ObjectFilterFunctionTestBase
 
         result.ShouldBe(true);
     }    
-    
-    
 }

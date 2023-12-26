@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class NotOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotContainsValueOrDurationInMonthLowerThanValue_ShouldReturnTrue()
+    public void NotOperatorTest_WithTwoConditionsAreFalse_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -35,7 +35,7 @@ public class NotOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdContainsValueOrDurationInMonthNotEqualsValue_ShouldReturnFalse()
+    public void NotOperatorTest_WithOneConditionIsTrueAndOneIsFalse_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -63,7 +63,7 @@ public class NotOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithThreeFilterConditions_ShouldReturnTrue()
+    public void NotOperatorTest_WithThreeConditionsReturnFalse_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {

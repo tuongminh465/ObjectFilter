@@ -8,7 +8,7 @@ namespace UnitTest;
 public class ContainsOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdContainsValue_ShouldReturnTrue()
+    public void ContainsOperatorTest_WithBrandIdContainsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -23,7 +23,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotContainsValue_ShouldReturnFalse()
+    public void ContainsOperatorTest_WithBrandIdNotContainsValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -38,7 +38,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithVariationsIdContainsValue_ShouldReturnTrue()
+    public void ContainsOperatorTest_WithVariationsIdContainsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -53,7 +53,7 @@ public class ContainsOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithVariationsIdsNotContainsValue_ShouldReturnFalse()
+    public void ContainsOperatorTest_WithVariationsIdsNotContainsValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {

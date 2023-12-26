@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json.Linq;
 using ObjectFilter.Enum;
+using ObjectFilter.Extensions;
 using ObjectFilter.Model;
 using Qilin.Core.QilinShared.Common.Constants;
 
@@ -90,7 +91,7 @@ public static class ObjectEvaluator
             return false;
         }
         
-        var propertyValue = GetPropertyValue(obj, filter.Path);
+        var propertyValue = obj.GetPropertyValue(filter.Path);
         
         return Equals(propertyValue, filter.Value);
     }
@@ -102,7 +103,7 @@ public static class ObjectEvaluator
             return false;
         }
         
-        var propertyValue = GetPropertyValue(obj, filter.Path) as string;
+        var propertyValue = obj.GetPropertyValue(filter.Path) as string;
         
         return propertyValue.Contains(filter.Value.ToString());
     }
@@ -114,14 +115,14 @@ public static class ObjectEvaluator
             return false;
         }
         
-        var propertyValue = GetArrayValue(obj, filter.Path);
+        var propertyValue = obj.GetArrayValue(filter.Path);
         
         return propertyValue.Contains(filter.Value);
     }
 
     private static bool EvaluateGreaterThan(FilterPredicate filter, object obj)
     {
-        var propertyValue = GetPropertyValue(obj, filter.Path);
+        var propertyValue = obj.GetPropertyValue(filter.Path);
 
         if (propertyValue is IComparable comparableValue)
         {
@@ -133,7 +134,7 @@ public static class ObjectEvaluator
 
     private static bool EvaluateGreaterThanOrEqual(FilterPredicate filter, object obj)
     {
-        var propertyValue = GetPropertyValue(obj, filter.Path);
+        var propertyValue = obj.GetPropertyValue(filter.Path);
 
         if (propertyValue is IComparable comparableValue)
         {
@@ -146,7 +147,7 @@ public static class ObjectEvaluator
 
     private static bool EvaluateLowerThan(FilterPredicate filter, object obj)
     {
-        var propertyValue = GetPropertyValue(obj, filter.Path);
+        var propertyValue = obj.GetPropertyValue(filter.Path);
 
         if (propertyValue is IComparable comparableValue)
         {
@@ -158,7 +159,7 @@ public static class ObjectEvaluator
 
     private static bool EvaluateLowerThanOrEqual(FilterPredicate filter, object obj)
     {
-        var propertyValue = GetPropertyValue(obj, filter.Path);
+        var propertyValue = obj.GetPropertyValue(filter.Path);
 
         if (propertyValue is IComparable comparableValue)
         {
@@ -175,7 +176,7 @@ public static class ObjectEvaluator
             return true;
         }
         
-        var propertyValue = GetPropertyValue(obj, filter.Path) as string;
+        var propertyValue = obj.GetPropertyValue(filter.Path) as string;
 
         return string.IsNullOrEmpty(propertyValue);
     }
@@ -187,31 +188,15 @@ public static class ObjectEvaluator
             return true;
         }
         
-        var propertyValue = GetArrayValue(obj, filter.Path);
+        var propertyValue = obj.GetArrayValue(filter.Path);
 
         return !propertyValue.Any();
     }
 
     private static bool EvaluateNull(FilterPredicate filter, object obj)
     {
-        var propertyValue = GetPropertyValue(obj, filter.Path);
+        var propertyValue = obj.GetPropertyValue(filter.Path);
         
         return propertyValue == null;
-    }
-
-    public static object? GetPropertyValue(object obj, string jsonPath)
-    {
-        var json = JObject.FromObject(obj);
-        var token = json.SelectToken(jsonPath, true);
-        
-        return token?.ToObject<object>();
-    }
-    
-    public static IEnumerable<object>? GetArrayValue(object obj, string jsonPath)
-    {
-        var json = JObject.FromObject(obj);
-        var token = json.SelectToken(jsonPath, true);
-        
-        return token?.ToObject<List<object>>();
     }
 }

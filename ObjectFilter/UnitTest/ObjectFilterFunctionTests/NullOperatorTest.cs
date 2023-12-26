@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class NullOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithWarrantTypeNull_ShouldReturnTrue()
+    public void NullOperatorTest_WithWarrantTypeNull_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -21,7 +21,7 @@ public class NullOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithWarrantTypeNotNull_ShouldReturnFalse()
+    public void NullOperatorTest_WithWarrantTypeNotNull_ShouldReturnFalse()
     {
         _product.Warranty.WarrantyType = "Normal";
         

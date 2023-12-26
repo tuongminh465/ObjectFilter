@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class EqualsOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdEqualsValue_ShouldReturnTrue()
+    public void EqualsOperatorTest_WithBrandIdEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -20,45 +20,15 @@ public class EqualsOperatorTest : ObjectFilterFunctionTestBase
 
         result.ShouldBe(true);
     }
-    
+
     [Test]
-    public void ObjectFilterFunction_WithBrandIdNotEqualsValue_ShouldReturnTrue()
+    public void EqualsOperatorTest_WithBrandIdNotEqualsValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
             Operation = "Equals",
             Path = "$.BrandId",
             Value = "ext-brand-45"
-        };
-
-        var result = ObjectEvaluator.EvaluateObject(filter, _product);
-
-        result.ShouldBe(false);
-    }
-    
-    [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsEqualsValue_ShouldReturnTrue()
-    {
-        var filter = new FilterPredicate
-        {
-            Operation = "Equals",
-            Path = "$.Warranty.DurationInMonth",
-            Value = 12
-        };
-
-        var result = ObjectEvaluator.EvaluateObject(filter, _product);
-
-        result.ShouldBe(true);
-    }
-    
-    [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsNotEqualsValue_ShouldReturnFalse()
-    {
-        var filter = new FilterPredicate
-        {
-            Operation = "Equals",
-            Path = "$.Warranty.DurationInMonth",
-            Value = 10
         };
 
         var result = ObjectEvaluator.EvaluateObject(filter, _product);

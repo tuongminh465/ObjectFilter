@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class AndOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithBrandIdContainsValueAndDurationInMonthEqualsValue_ShouldReturnTrue()
+    public void AndOperatorTest_WithTwoConditionsAreTrue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -35,7 +35,7 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdContainsValueAndDurationInMonthNotEqualsValue_ShouldReturnFalse()
+    public void AndOperatorTest_WithTwoConditionsButOneIsFalse_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -50,10 +50,10 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
                 },
                 new()
                 {
-                    Operation = "Equals",
-                    Path = "$.Warranty.DurationInMonth",
-                    Value = 15
-                }
+                    Operation = "Contains",
+                    Path = "$.BrandId",
+                    Value = "brand-45" 
+                },
             }
         };
 
@@ -63,7 +63,35 @@ public class AndOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithThreeFilterConditions_ShouldReturnTrue()
+    public void AndOperatorTest_WithTwoConditionsAreFalse_ShouldReturnFalse()
+    {
+        var filter = new FilterPredicate
+        {
+            Operation = "And",
+            Apply = new List<FilterPredicate>
+            {
+                new()
+                {
+                    Operation = "Contains",
+                    Path = "$.BrandId",
+                    Value = "brand-45" 
+                },
+                new()
+                {
+                    Operation = "Contains",
+                    Path = "$.BrandId",
+                    Value = "brand-67" 
+                },
+            }
+        };
+
+        var result = ObjectEvaluator.EvaluateObject(filter, _product);
+
+        result.ShouldBe(false);
+    }
+    
+    [Test]
+    public void ObjectFilterFunction_WithThreeConditionsAreTrue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {

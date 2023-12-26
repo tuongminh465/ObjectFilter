@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class LowerThanOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void ObjectFilterFunction_WithDurationInMonthLowerThanValue_ShouldReturnTrue()
+    public void LowerThanOperatorTest_WithDurationInMonthLowerThanValue_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -22,7 +22,7 @@ public class LowerThanOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsGreaterThanValue_ShouldReturnFalse()
+    public void LowerThanOperatorTest_WithDurationInMonthsGreaterThanValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -37,7 +37,7 @@ public class LowerThanOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithDurationInMonthsEqualsValue_ShouldReturnFalse()
+    public void LowerThanOperatorTest_WithDurationInMonthsEqualsValue_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {

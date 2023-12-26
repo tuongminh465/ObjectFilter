@@ -7,7 +7,7 @@ namespace UnitTest.ObjectFilterFunctionTests;
 public class OrOperatorTest : ObjectFilterFunctionTestBase
 {
     [Test]
-    public void OrOperationTest_WithOneOutOfTwoConditionsCorrect_ShouldReturnTrue()
+    public void OrOperatorTest_WithOneConditionIsTrueAndOneIsFalse_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
@@ -35,7 +35,7 @@ public class OrOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithBrandIdContainsValueOrDurationInMonthNotEqualsValue_ShouldReturnFalse()
+    public void OrOperatorTest_WithTwoConditionsAreFalse_ShouldReturnFalse()
     {
         var filter = new FilterPredicate
         {
@@ -63,7 +63,7 @@ public class OrOperatorTest : ObjectFilterFunctionTestBase
     }
     
     [Test]
-    public void ObjectFilterFunction_WithThreeFilterConditions_ShouldReturnTrue()
+    public void OrOperatorTest_WithThreeFilterConditions_ShouldReturnTrue()
     {
         var filter = new FilterPredicate
         {
